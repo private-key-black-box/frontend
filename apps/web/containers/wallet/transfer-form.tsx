@@ -1,6 +1,8 @@
 import { Form } from "@/components/ui/form";
 import { TransferForm as TransferFormComponent } from "@/components/wallet/transfer-form";
-import { useObserveBalance, useTransfer } from "@/lib/stores/balances";
+import { useObserveBalance } from "@/lib/stores/balances";
+import { useTransfer } from "@/lib/stores/nosigning";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PublicKey } from "o1js";
 import { useEffect, useRef, useState } from "react";
