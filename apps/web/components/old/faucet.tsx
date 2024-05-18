@@ -1,10 +1,9 @@
 "use client";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { Button } from "./ui/button";
-
+import { Button } from "../ui/button";
 export interface FaucetProps {
   wallet?: string;
   loading: boolean;

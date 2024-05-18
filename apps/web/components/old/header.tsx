@@ -5,7 +5,7 @@ import Image from "next/image";
 import truncateMiddle from "truncate-middle";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Chain } from "./chain";
-import { Separator } from "./ui/separator";
+import { Separator } from "../ui/separator";
 
 export interface HeaderProps {
   loading: boolean;
