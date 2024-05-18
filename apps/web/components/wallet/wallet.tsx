@@ -20,6 +20,7 @@ export interface WalletProps {
   balances?: Balances;
   loading: boolean;
   onConnectWallet: () => void;
+  onDisconnectWallet: () => void;
   onFaucetDrip: () => void;
   forceIsWalletOpen: boolean;
 }
@@ -30,6 +31,7 @@ export function Wallet({
   balances,
   loading,
   onConnectWallet,
+  onDisconnectWallet,
   forceIsWalletOpen,
   onFaucetDrip,
 }: WalletProps) {
@@ -155,9 +157,7 @@ export function Wallet({
                   if (!token || (BigInt(tokenId) > 3n && balance == "0"))
                     return null;
                   return (
-                    <div className="flex
-
- items-center justify-between" key={tokenId}>
+                    <div className="flex items-center justify-between" key={tokenId}>
                       <div className="flex items-center">
                         <img className="mr-3 h-8 w-8" src={token.logo} alt={`${token.ticker} logo`} />
                         <div>
