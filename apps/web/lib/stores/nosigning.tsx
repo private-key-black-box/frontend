@@ -4,6 +4,9 @@ import { immer } from "zustand/middleware/immer";
 import { PendingTransaction, UnsignedTransaction } from "@proto-kit/sequencer";
 import { Balance, BalancesKey, TokenId } from "@proto-kit/library";
 import { PublicKey } from "o1js";
+import { NoSignerProof } from "../../../../packages/chain/src/runtime/nosigning";
+import mockProof from "../../../../packages/chain/test/proof";
+
 import { useCallback, useEffect, useMemo } from "react";
 import { useChainStore } from "./chain";
 import { useWalletStore } from "./wallet";
@@ -44,17 +47,20 @@ export const useNoSigningStore = create<
       const noSigning = client.runtime.resolve("NoSigning");
       const sender = PublicKey.fromBase58(address);
 
+      const mock = NoSignerProof.fromJSON(mockProof);
+      console.log("tx created");
       const tx = await client.transaction(sender, () => {
         noSigning.transferWithProof(
           TokenId.from(tokenId),
           sender,
           PublicKey.fromBase58(recipient),
           Balance.from(amount),
-          null, // TODO: ADD PROOF HERE
+          null,
+          // mock, // TODO: ADD PROOF HERE
         );
       });
+      console.log("tx finished");
 
-      await tx.sign();
       await tx.send();
 
       isPendingTransaction(tx.transaction);

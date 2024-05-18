@@ -91,7 +91,6 @@ const proof = new NoSignerProof({
 });
 
 
-// console.log(`proof: ${JSON.stringify(proof, null, 2)}`);
 
 @runtimeModule()
 export class NoSigning extends RuntimeModule<Record<string, never>> {
