@@ -1,11 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import {
-  ChevronsLeft,
   ChevronsRight,
-  Construction,
   Loader2Icon,
-  LoaderIcon,
   PiggyBank,
   Wallet as WalletIcon,
 } from "lucide-react";
@@ -15,9 +12,8 @@ import { Balance } from "../ui/balance";
 import { USDBalance } from "../ui/usd-balance";
 // @ts-ignore
 import truncateMiddle from "truncate-middle";
-import { BlockHeight } from "chain/dist/runtime/locks";
 import { tokens } from "@/tokens";
-import { Skeleton } from "@/components/ui/skeleton";
+import { TransactionHistory, Transaction} from "../ui/transaction-history";
 
 export interface Balances {
   [tokenId: string]: string | undefined;
@@ -32,6 +28,16 @@ export interface WalletProps {
   onFaucetDrip: () => void;
   forceIsWalletOpen: boolean;
 }
+
+const sampleTransactions: Transaction[] = [
+  { id: '1', date: '18.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
+  { id: '2', date: '17.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Sent' },
+  // { id: '3', date: '15.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Received' },
+  // { id: '4', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
+  // { id: '5', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Staking Reward' },
+  // { id: '6', date: '10.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Sent' },
+  // { id: '7', date: '09.05.2024', amount: '1.0 BTC', currency: 'BTC', type: 'Received' },
+];
 
 export function Wallet({
   address,
@@ -192,6 +198,9 @@ export function Wallet({
                   );
                 })}
               </div>
+            </div>
+            <div className="p-6">
+              <TransactionHistory transactions={sampleTransactions} />
             </div>
             <div className="flex w-full flex-col items-center justify-between p-6">
               <Button
