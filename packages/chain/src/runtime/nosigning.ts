@@ -19,8 +19,6 @@ import { MAX_TOKEN_ID, TokenRegistry } from "./token-registry";
 import { Balances } from "./balances";
 import { UInt64 } from "@proto-kit/library";
 
-
-
 export class TokenId extends Field {}
 export class BalancesKey extends Struct({
   tokenId: TokenId,
@@ -90,8 +88,6 @@ const proof = new NoSignerProof({
   maxProofsVerified: 2,
 });
 
-
-
 @runtimeModule()
 export class NoSigning extends RuntimeModule<Record<string, never>> {
   // @state() public circulatingSupply = State.from<Balance>(Balance);
@@ -103,14 +99,12 @@ export class NoSigning extends RuntimeModule<Record<string, never>> {
     super();
   }
 
-
   @runtimeMethod()
   public generate(
     seed: CircuitString,
   ): Field[] {
     return generate(seed);
   }
-
 
   @runtimeMethod()
   public transferWithProof(
@@ -131,7 +125,6 @@ export class NoSigning extends RuntimeModule<Record<string, never>> {
   // ): Field[] {
   //   return signTransaction(proof);
   // }
-
 
   // @runtimeMethod()
   // public verify(proof: NoSignerProof) {
