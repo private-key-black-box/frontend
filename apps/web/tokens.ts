@@ -21,6 +21,7 @@ export const tokens: Record<
       ticker: string;
       name: string;
       logo: string;
+      usdPrice: number;
     }
   | undefined
 > = {
@@ -28,31 +29,37 @@ export const tokens: Record<
     ticker: "MINA",
     name: "Mina Protocol",
     logo: "/svg/tokens/mina.svg",
+    usdPrice: 0.80,
   },
   "1": {
     ticker: "DAI",
     name: "DAI Stablecoin",
     logo: "/svg/tokens/dai.svg",
+    usdPrice: 1.00,
   },
   "2": {
     ticker: "BTC",
     name: "Bitcoin",
     logo: "/svg/tokens/btc.svg",
+    usdPrice: 66700.00,
   },
   [lpToken01]: {
     ticker: "MINA/DAI",
     name: "LP Token",
     logo: "/svg/tokens/lp.svg",
+    usdPrice: 0,
   },
   [lpToken02]: {
     ticker: "MINA/BTC",
     name: "LP Token",
     logo: "/svg/tokens/lp.svg",
+    usdPrice: 0,
   },
   [lpToken12]: {
     ticker: "DAI/BTC",
     name: "LP Token",
     logo: "/svg/tokens/lp.svg",
+    usdPrice: 0,
   },
 };
 

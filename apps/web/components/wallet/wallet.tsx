@@ -1,13 +1,6 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import {
-  ChevronsRight,
-  Loader2Icon,
-  PiggyBank,
-  Wallet as WalletIcon,
-} from "lucide-react";
+import { ChevronsRight, Loader2Icon, PiggyBank, Wallet as WalletIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { GeistMono } from "geist/font/mono";
 import { Balance } from "../ui/balance";
@@ -31,24 +24,14 @@ export interface WalletProps {
   forceIsWalletOpen: boolean;
 }
 
-// const sampleTransactions: Transaction[] = [
-//   { id: '1', date: '18.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
-//   { id: '2', date: '17.05.2024', amount: '500.0 MINA', currency: 'MINA', type: 'Sent' },
-//   { id: '3', date: '16.05.2024', amount: '200.0 DAI', currency: 'DAI', type: 'Received' },
-//   { id: '4', date: '15.05.2024', amount: '300.0 DAI', currency: 'DAI', type: 'Sent' },
-//   { id: '5', date: '13.05.2024', amount: '20.0 MINA', currency: 'MINA', type: 'Staking Reward' },
-//   { id: '6', date: '11.05.2024', amount: '800.0 MINA', currency: 'MINA', type: 'Received' },
-//   { id: '7', date: '04.05.2024', amount: '0.1 BTC', currency: 'BTC', type: 'Sent' },
-// ];
-
 export function Wallet({
   address,
   blockHeight,
   balances,
   loading,
   onConnectWallet,
-  onFaucetDrip,
   forceIsWalletOpen,
+  onFaucetDrip,
 }: WalletProps) {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
   const [isWalletDoneTransitioning, setIsWalletDoneTransitioning] = useState(true);
@@ -157,7 +140,7 @@ export function Wallet({
                   GeistMono.className,
                 )}
               >
-                <USDBalance balance={balances?.["0"]} />
+                <USDBalance balance={balances?.["0"] ?? "0"} tokenId="0" />
               </p>
             </div>
           </div>
@@ -172,7 +155,9 @@ export function Wallet({
                   if (!token || (BigInt(tokenId) > 3n && balance == "0"))
                     return null;
                   return (
-                    <div className="flex items-center justify-between" key={tokenId}>
+                    <div className="flex
+
+ items-center justify-between" key={tokenId}>
                       <div className="flex items-center">
                         <img className="mr-3 h-8 w-8" src={token.logo} alt={`${token.ticker} logo`} />
                         <div>
@@ -192,7 +177,7 @@ export function Wallet({
                             GeistMono.className,
                           )}
                         >
-                          <USDBalance balance={balance} />
+                          <USDBalance balance={balance} tokenId={tokenId} />
                         </p>
                       </div>
                     </div>
