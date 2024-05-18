@@ -16,14 +16,14 @@ interface TransactionHistoryProps {
   transactions: Transaction[];
 }
 
-const sampleTransactions: Transaction[] = [
+export const sampleTransactions: Transaction[] = [
   { id: '1', date: '18.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
-  { id: '2', date: '17.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Sent' },
-  { id: '3', date: '15.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Received' },
-  { id: '4', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
-  { id: '5', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Staking Reward' },
-  { id: '6', date: '10.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Sent' },
-  { id: '7', date: '09.05.2024', amount: '1.0 BTC', currency: 'BTC', type: 'Received' },
+  { id: '2', date: '17.05.2024', amount: '500.0 MINA', currency: 'MINA', type: 'Sent' },
+  { id: '3', date: '16.05.2024', amount: '200.0 DAI', currency: 'DAI', type: 'Received' },
+  { id: '4', date: '15.05.2024', amount: '300.0 DAI', currency: 'DAI', type: 'Sent' },
+  { id: '5', date: '13.05.2024', amount: '20.0 MINA', currency: 'MINA', type: 'Staking Reward' },
+  { id: '6', date: '11.05.2024', amount: '800.0 MINA', currency: 'MINA', type: 'Received' },
+  { id: '7', date: '04.05.2024', amount: '0.2 BTC', currency: 'BTC', type: 'Sent' },
 ];
 
 export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions = sampleTransactions }) => {
@@ -49,7 +49,12 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
                 </div>
               </div>
               <div className="text-right">
-                <p className={cn("text-md font-semibold", transaction.type === 'Received' ? 'text-green-500' : 'text-red-500')}>{transaction.amount}</p>
+                <p className={cn(
+                  "text-md font-semibold",
+                  transaction.type === 'Received' || transaction.type === 'Staking Reward' ? 'text-green-500' : 'text-red-500'
+                )}>
+                  {transaction.amount}
+                </p>
                 <p className="text-xs text-gray-500">{transaction.type}</p>
               </div>
             </div>
