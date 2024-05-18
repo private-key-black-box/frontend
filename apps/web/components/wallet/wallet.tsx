@@ -47,12 +47,11 @@ export function Wallet({
   balances,
   loading,
   onConnectWallet,
-  forceIsWalletOpen,
   onFaucetDrip,
+  forceIsWalletOpen,
 }: WalletProps) {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
-  const [isWalletDoneTransitioning, setIsWalletDoneTransitioning] =
-    useState(true);
+  const [isWalletDoneTransitioning, setIsWalletDoneTransitioning] = useState(true);
   const [shouldDelayChevrons, setShouldDelayChevrons] = useState(false);
 
   useEffect(() => {
@@ -158,7 +157,7 @@ export function Wallet({
                   GeistMono.className,
                 )}
               >
-                <USDBalance balance={undefined} />
+                <USDBalance balance={balances?.["0"]} />
               </p>
             </div>
           </div>
@@ -193,7 +192,7 @@ export function Wallet({
                             GeistMono.className,
                           )}
                         >
-                          <USDBalance balance={undefined} />
+                          <USDBalance balance={balance} />
                         </p>
                       </div>
                     </div>
@@ -210,7 +209,9 @@ export function Wallet({
                 variant={"outline"}
                 onClick={onFaucetDrip}
               >
-                <PiggyBank className="mr-2 h-4 w-4" />
+                <PiggyBank className="mr-2 h-4 w
+
+-4" />
                 Get test tokens
               </Button>
               <div className="flex w-full justify-between">

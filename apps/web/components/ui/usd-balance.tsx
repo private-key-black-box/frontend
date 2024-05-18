@@ -5,7 +5,8 @@ export interface USDBalanceProps {
 }
 
 export function USDBalance({ balance }: USDBalanceProps) {
-  return <span className={GeistMono.className}>{balance ?? "—"}$</span>;
-}
-const Mina = 0.80
+  const MinaToUSD = 0.0080;
+  const updatedBalance = balance ? (parseFloat(balance) * MinaToUSD).toFixed(2) : "—";
 
+  return <span className={GeistMono.className}>{updatedBalance}$</span>;
+}
