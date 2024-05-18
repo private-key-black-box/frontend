@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import {
@@ -13,7 +15,7 @@ import { USDBalance } from "../ui/usd-balance";
 // @ts-ignore
 import truncateMiddle from "truncate-middle";
 import { tokens } from "@/tokens";
-import { TransactionHistory, Transaction} from "../ui/transaction-history";
+import { TransactionHistory, Transaction } from "../ui/transaction-history";
 
 export interface Balances {
   [tokenId: string]: string | undefined;
@@ -32,11 +34,11 @@ export interface WalletProps {
 const sampleTransactions: Transaction[] = [
   { id: '1', date: '18.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
   { id: '2', date: '17.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Sent' },
-  // { id: '3', date: '15.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Received' },
-  // { id: '4', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
-  // { id: '5', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Staking Reward' },
-  // { id: '6', date: '10.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Sent' },
-  // { id: '7', date: '09.05.2024', amount: '1.0 BTC', currency: 'BTC', type: 'Received' },
+  { id: '3', date: '15.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Received' },
+  { id: '4', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
+  { id: '5', date: '13.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Staking Reward' },
+  { id: '6', date: '10.05.2024', amount: '1000.0 USDC', currency: 'USDC', type: 'Sent' },
+  { id: '7', date: '09.05.2024', amount: '1.0 BTC', currency: 'BTC', type: 'Received' },
 ];
 
 export function Wallet({
@@ -117,7 +119,7 @@ export function Wallet({
         onMouseLeave={() => setShouldDelayChevrons(false)}
         onMouseEnter={() => setShouldDelayChevrons(true)}
         className={cn([
-          "fixed -right-[360px] top-0 z-50 flex h-full w-[360px] flex-col  rounded-2xl  border-l-2 transition-all duration-300 ease-in-out",
+          "fixed -right-[360px] top-0 z-50 flex h-full w-[360px] flex-col rounded-2xl border-l-2 transition-all duration-300 ease-in-out",
           {
             "right-[0px] border-l-zinc-900 bg-zinc-950": isWalletOpen,
           },
@@ -134,7 +136,7 @@ export function Wallet({
           <Loader2Icon className="h-12 w-12 animate-spin text-muted-foreground" />
         </div>
         <div
-          className={cn("flex h-full flex-col transition-all duration-100", {
+          className={cn("flex h-full flex-col transition-all duration-100 overflow-y-auto", {
             "blur-md": loading,
           })}
         >
@@ -163,7 +165,7 @@ export function Wallet({
 
           <div className="flex flex-grow flex-col justify-between">
             <div className="p-6">
-              <p className="text-md mb-5  text-muted-foreground">Tokens</p>
+              <p className="text-md mb-5 text-muted-foreground">Tokens</p>
 
               <div className="grid gap-2">
                 {Object.entries(balances ?? {}).map(([tokenId, balance]) => {
@@ -171,9 +173,9 @@ export function Wallet({
                   if (!token || (BigInt(tokenId) > 3n && balance == "0"))
                     return null;
                   return (
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between" key={tokenId}>
                       <div className="flex items-center">
-                        <img className="mr-3 h-8 w-8" src={token.logo} />
+                        <img className="mr-3 h-8 w-8" src={token.logo} alt={`${token.ticker} logo`} />
                         <div>
                           <p className="text-sm">{token.ticker}</p>
                           <p className="text-xs text-muted-foreground">
@@ -204,7 +206,7 @@ export function Wallet({
             </div>
             <div className="flex w-full flex-col items-center justify-between p-6">
               <Button
-                className="mb-4  w-full "
+                className="mb-4 w-full"
                 variant={"outline"}
                 onClick={onFaucetDrip}
               >

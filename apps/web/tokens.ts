@@ -27,32 +27,32 @@ export const tokens: Record<
   "0": {
     ticker: "MINA",
     name: "Mina Protocol",
-    logo: "/tokens/mina.svg",
+    logo: "/svg/tokens/mina.svg",
   },
   "1": {
     ticker: "DAI",
     name: "DAI Stablecoin",
-    logo: "/tokens/dai.svg",
+    logo: "/svg/tokens/dai.svg",
   },
   "2": {
     ticker: "BTC",
     name: "Bitcoin",
-    logo: "/tokens/btc.svg",
+    logo: "/svg/tokens/btc.svg",
   },
   [lpToken01]: {
     ticker: "MINA/DAI",
     name: "LP Token",
-    logo: "/tokens/lp.svg",
+    logo: "/svg/tokens/lp.svg",
   },
   [lpToken02]: {
     ticker: "MINA/BTC",
     name: "LP Token",
-    logo: "/tokens/lp.svg",
+    logo: "/svg/tokens/lp.svg",
   },
   [lpToken12]: {
     ticker: "DAI/BTC",
     name: "LP Token",
-    logo: "/tokens/lp.svg",
+    logo: "/svg/tokens/lp.svg",
   },
 };
 

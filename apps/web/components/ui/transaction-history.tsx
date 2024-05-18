@@ -1,5 +1,8 @@
+"use client";
+
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { tokens } from "@/tokens";
 
 export interface Transaction {
   id: string;
@@ -28,21 +31,30 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
     <div className="p-6">
       <h2 className="text-lg font-semibold mb-5">Transaction History</h2>
       <div className="grid gap-4">
-        {transactions.map((transaction) => (
-          <div key={transaction.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg shadow-sm">
-            <div className="flex items-center">
-              <img className="mr-3 h-10 w-10 rounded-full" src={`/icons/${transaction.currency.toLowerCase()}.png`} alt={`${transaction.currency} icon`} />
-              <div>
-                <p className="text-sm font-medium">{transaction.currency}</p>
-                <p className="text-xs text-gray-500">{transaction.date}</p>
+        {transactions.map((transaction) => {
+          const token = Object.values(tokens).find(
+            (t) => t?.ticker.toUpperCase() === transaction.currency.toUpperCase()
+          );
+          return (
+            <div key={transaction.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg shadow-sm">
+              <div className="flex items-center">
+                {token ? (
+                  <img className="mr-3 h-10 w-10 rounded-full" src={token.logo} alt={`${transaction.currency} icon`} />
+                ) : (
+                  <div className="mr-3 h-10 w-10 rounded-full bg-gray-200" />
+                )}
+                <div>
+                  <p className="text-sm font-medium">{transaction.currency}</p>
+                  <p className="text-xs text-gray-500">{transaction.date}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className={cn("text-md font-semibold", transaction.type === 'Received' ? 'text-green-500' : 'text-red-500')}>{transaction.amount}</p>
+                <p className="text-xs text-gray-500">{transaction.type}</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className={cn("text-md font-semibold", transaction.type === 'Received' ? 'text-green-500' : 'text-red-500')}>{transaction.amount}</p>
-              <p className="text-xs text-gray-500">{transaction.type}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

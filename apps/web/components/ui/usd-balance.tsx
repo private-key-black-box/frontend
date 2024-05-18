@@ -7,3 +7,5 @@ export interface USDBalanceProps {
 export function USDBalance({ balance }: USDBalanceProps) {
   return <span className={GeistMono.className}>{balance ?? "—"}$</span>;
 }
+const Mina = 0.80
+
