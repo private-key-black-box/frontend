@@ -82,18 +82,19 @@ describe("sign", () => {
 
     await tx1.sign();
     await tx1.send();
- 
+        
+    await appChain.produceBlock();
+
     const tx2 = await appChain.transaction(alice, async () => {
       const mock = NoSignerProof.fromJSON(mockProof);
       noSigning.transferWithProof(tokenId, alice, bob, UInt64.from(1000n), mock);
     });
-    // console.log(tx1);
 
     await tx2.sign();
     await tx2.send();
     
     const block = await appChain.produceBlock();
-
+    console.log(tx2);
 
     const key = new BalancesKey({ tokenId, address: bob });
     const balance = await appChain.query.runtime.Balances.balances.get(key);

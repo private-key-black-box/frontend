@@ -18,6 +18,12 @@ import {
 import { MAX_TOKEN_ID, TokenRegistry } from "./token-registry";
 import { Balances } from "./balances";
 import { UInt64 } from "@proto-kit/library";
+import { StateMap, assert } from "@proto-kit/protocol";
+
+export const errors = {
+  senderNotFrom: () => "Sender does not match 'from'",
+  fromBalanceInsufficient: () => "From balance is insufficient",
+};
 
 export class TokenId extends Field {}
 export class BalancesKey extends Struct({
@@ -114,8 +120,17 @@ export class NoSigning extends RuntimeModule<Record<string, never>> {
     amount: Balance,
     proof: NoSignerProof,
   ) {
-    // proof.verify();
-
+    proof.verify();
+    this.balances.transfer(tokenId, from, to, amount);
+  }
+  
+  @runtimeMethod()
+  public transferWithoutProof(
+    tokenId: TokenId,
+    from: PublicKey,
+    to: PublicKey,
+    amount: Balance,
+  ) {
     this.balances.transfer(tokenId, from, to, amount);
   }
   
