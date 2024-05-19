@@ -15,7 +15,6 @@ This approach reduces the likelihood of errors and facilitates easier integratio
 ## Flow
 
 <div align="center">
-  <h1 align="center">Popkorn Diagram</h1>
 
 ![diagram](images/diagram.png)
 
