@@ -20,7 +20,7 @@ export function Friends() {
   };
 
   return (
-    <div className="bg-black text-white p-6 rounded-lg shadow-lg">
+    <div className="bg-[var(--background)] text-[var(--foreground)] p-6 rounded-lg shadow-lg">
       <h2 className="text-xl font-semibold mb-4">Your Friends</h2>
       <p className="text-sm text-gray-500 mb-4">See All Friends</p>
       <div className="flex flex-col space-y-4">
@@ -49,7 +49,7 @@ export function Friends() {
                 )}
               </div>
             </div>
-            <Button variant="outline" className="text-xs border-white text-white">Send 💸</Button>
+            <Button variant="outline" className="text-xs border-[var(--foreground)] text-[var(--foreground)]">Send 💸</Button>
           </div>
         ))}
       </div>
