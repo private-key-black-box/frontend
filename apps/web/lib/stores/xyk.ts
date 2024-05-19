@@ -3,12 +3,11 @@ import { immer } from "zustand/middleware/immer";
 import { Client, useClientStore } from "./client";
 import { useCallback, useEffect, useMemo } from "react";
 import { useWalletStore } from "./wallet";
-import { Bool, Provable, PublicKey } from "o1js";
+import { Bool, PublicKey } from "o1js";
 import { Balance, TokenId } from "@proto-kit/library";
 import { isPendingTransaction } from "./balances";
 import { PendingTransaction } from "@proto-kit/sequencer";
-import { PoolKey, TokenIdPath } from "chain";
-import { resolve } from "path";
+import { PoolKey, TokenIdPath } from "chain"; // Ensure the correct path
 import { useChainStore } from "./chain";
 
 export interface XYKState {
@@ -18,7 +17,7 @@ export interface XYKState {
     tokenAId: string,
     tokenBId: string,
     tokenAAmount: string,
-    tokenBAmount: string,
+    tokenBAmount: string
   ) => Promise<PendingTransaction>;
   addLiquidity: (
     client: Client,
@@ -26,7 +25,7 @@ export interface XYKState {
     tokenAId: string,
     tokenBId: string,
     tokenAAmount: string,
-    tokenBAmountLimit: string,
+    tokenBAmountLimit: string
   ) => Promise<PendingTransaction>;
   removeLiquidity: (
     client: Client,
@@ -35,14 +34,14 @@ export interface XYKState {
     tokenBId: string,
     lpTokenAmount: string,
     tokenAAmountLimit: string,
-    tokenBAmountLimit: string,
+    tokenBAmountLimit: string
   ) => Promise<PendingTransaction>;
   sellPath: (
     client: Client,
     sender: string,
     path: string[],
     amountIn: string,
-    amountOutMinLimit: string,
+    amountOutMinLimit: string
   ) => Promise<PendingTransaction>;
   loadPool: (client: Client, key: string) => Promise<void>;
   pools: {
@@ -66,18 +65,28 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
           exists: state.pools[key]?.exists ?? false,
         };
       });
-      const pool = (await client.query.runtime.XYK.pools.get(
-        PoolKey.fromBase58(key),
-      )) as Bool | undefined;
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      try {
+        const poolKey = PoolKey.fromBase58(key); // Ensure this is correct
+        const pool = (await client.query.runtime.XYK.pools.get(poolKey)) as Bool | undefined;
 
-      set((state) => {
-        state.pools[key] = {
-          loading: false,
-          exists: pool?.toBoolean() ?? false,
-        };
-      });
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        set((state) => {
+          state.pools[key] = {
+            loading: false,
+            exists: pool?.toBoolean() ?? false,
+          };
+        });
+      } catch (error) {
+        console.error("Failed to load pool:", error);
+        set((state) => {
+          state.pools[key] = {
+            loading: false,
+            exists: false,
+          };
+        });
+      }
     },
 
     createPool: async (
@@ -86,7 +95,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
       tokenAId: string,
       tokenBId: string,
       tokenAAmount: string,
-      tokenBAmount: string,
+      tokenBAmount: string
     ) => {
       const xyk = client.runtime.resolve("XYK");
       const senderPublicKey = PublicKey.fromBase58(sender);
@@ -96,7 +105,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
           TokenId.from(tokenAId),
           TokenId.from(tokenBId),
           Balance.from(tokenAAmount),
-          Balance.from(tokenBAmount),
+          Balance.from(tokenBAmount)
         );
       });
 
@@ -113,7 +122,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
       tokenAId: string,
       tokenBId: string,
       tokenAAmount: string,
-      tokenBAmountLimit: string,
+      tokenBAmountLimit: string
     ) => {
       const xyk = client.runtime.resolve("XYK");
       const senderPublicKey = PublicKey.fromBase58(sender);
@@ -123,7 +132,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
           TokenId.from(tokenAId),
           TokenId.from(tokenBId),
           Balance.from(tokenAAmount),
-          Balance.from(tokenBAmountLimit),
+          Balance.from(tokenBAmountLimit)
         );
       });
 
@@ -133,6 +142,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
       isPendingTransaction(tx.transaction);
       return tx.transaction;
     },
+
     removeLiquidity: async (
       client: Client,
       sender: string,
@@ -140,7 +150,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
       tokenBId: string,
       lpTokenAmount: string,
       tokenAAmountLimit: string,
-      tokenBAmountLimit: string,
+      tokenBAmountLimit: string
     ) => {
       const xyk = client.runtime.resolve("XYK");
       const senderPublicKey = PublicKey.fromBase58(sender);
@@ -151,7 +161,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
           TokenId.from(tokenBId),
           Balance.from(lpTokenAmount),
           Balance.from(tokenAAmountLimit),
-          Balance.from(tokenBAmountLimit),
+          Balance.from(tokenBAmountLimit)
         );
       });
 
@@ -161,27 +171,27 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
       isPendingTransaction(tx.transaction);
       return tx.transaction;
     },
+
     sellPath: async (
       client: Client,
       sender: string,
       path: string[],
       amountIn: string,
-      amountOutMinLimit: string,
+      amountOutMinLimit: string
     ) => {
       const xyk = client.runtime.resolve("XYK");
       const senderPublicKey = PublicKey.fromBase58(sender);
 
       const basePath = path.length === 3 ? path : [...path, "99999"];
       const tokenIdPath = TokenIdPath.from(
-        basePath.map((id) => TokenId.from(id)),
+        basePath.map((id) => TokenId.from(id))
       );
-      Provable.log("PATH", basePath, tokenIdPath);
 
       const tx = await client.transaction(senderPublicKey, () => {
         xyk.sellPathSigned(
           tokenIdPath,
           Balance.from(amountIn),
-          Balance.from(amountOutMinLimit),
+          Balance.from(amountOutMinLimit)
         );
       });
 
@@ -191,7 +201,7 @@ export const useXYKStore = create<XYKState, [["zustand/immer", never]]>(
       isPendingTransaction(tx.transaction);
       return tx.transaction;
     },
-  })),
+  }))
 );
 
 export const useCreatePool = () => {
@@ -204,7 +214,7 @@ export const useCreatePool = () => {
       tokenAId: string,
       tokenBId: string,
       tokenAAmount: string,
-      tokenBAmount: string,
+      tokenBAmount: string
     ) => {
       if (!client.client || !wallet.wallet) return;
       const pendingTransaction = await createPool(
@@ -213,12 +223,12 @@ export const useCreatePool = () => {
         tokenAId,
         tokenBId,
         tokenAAmount,
-        tokenBAmount,
+        tokenBAmount
       );
 
       wallet.addPendingTransaction(pendingTransaction);
     },
-    [client.client, wallet.wallet],
+    [client.client, wallet.wallet]
   );
 };
 
@@ -232,7 +242,7 @@ export const useAddLiquidity = () => {
       tokenAId: string,
       tokenBId: string,
       tokenAAmount: string,
-      tokenBAmountLimit: string,
+      tokenBAmountLimit: string
     ) => {
       if (!client.client || !wallet.wallet) return;
       const pendingTransaction = await addLiquidity(
@@ -241,12 +251,12 @@ export const useAddLiquidity = () => {
         tokenAId,
         tokenBId,
         tokenAAmount,
-        tokenBAmountLimit,
+        tokenBAmountLimit
       );
 
       wallet.addPendingTransaction(pendingTransaction);
     },
-    [client.client, wallet.wallet],
+    [client.client, wallet.wallet]
   );
 };
 
@@ -261,7 +271,7 @@ export const useRemoveLiquidity = () => {
       tokenBId: string,
       lpTokenAmount: string,
       tokenAAmountLimit: string,
-      tokenBAmountLimit: string,
+      tokenBAmountLimit: string
     ) => {
       if (!client.client || !wallet.wallet) return;
       const pendingTransaction = await removeLiquidity(
@@ -271,12 +281,12 @@ export const useRemoveLiquidity = () => {
         tokenBId,
         lpTokenAmount,
         tokenAAmountLimit,
-        tokenBAmountLimit,
+        tokenBAmountLimit
       );
 
       wallet.addPendingTransaction(pendingTransaction);
     },
-    [client.client, wallet.wallet],
+    [client.client, wallet.wallet]
   );
 };
 
@@ -293,12 +303,12 @@ export const useSellPath = () => {
         wallet.wallet,
         path,
         amountIn,
-        amountOutMinLimit,
+        amountOutMinLimit
       );
 
       wallet.addPendingTransaction(pendingTransaction);
     },
-    [client.client, wallet.wallet],
+    [client.client, wallet.wallet]
   );
 };
 
