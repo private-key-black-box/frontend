@@ -19,11 +19,7 @@ interface TransactionHistoryProps {
 export const sampleTransactions: Transaction[] = [
   { id: '1', date: '18.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
   { id: '2', date: '17.05.2024', amount: '500.0 MINA', currency: 'MINA', type: 'Sent' },
-  { id: '3', date: '16.05.2024', amount: '200.0 DAI', currency: 'DAI', type: 'Received' },
-  { id: '4', date: '15.05.2024', amount: '300.0 DAI', currency: 'DAI', type: 'Sent' },
-  { id: '5', date: '13.05.2024', amount: '20.0 MINA', currency: 'MINA', type: 'Staking Reward' },
-  { id: '6', date: '11.05.2024', amount: '800.0 MINA', currency: 'MINA', type: 'Received' },
-  { id: '7', date: '04.05.2024', amount: '0.2 BTC', currency: 'BTC', type: 'Sent' },
+  { id: '3', date: '13.05.2024', amount: '20.0 MINA', currency: 'MINA', type: 'Staking Reward' },
 ];
 
 export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions = sampleTransactions }) => {
