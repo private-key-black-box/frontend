@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-
 import { TestingAppChain } from "@proto-kit/sdk";
 import { Character, CircuitString, PrivateKey, Proof } from "o1js";
 import { NoSigning, NoSignerProof } from "../../src/runtime/nosigning";
@@ -14,7 +13,7 @@ import mockProof from "../proof";
 log.setLevel("ERROR");
 
 describe("sign", () => {
-  it("should demonstrate how our new module works", async () => {
+  it("should demonstrate how token transfer without signing", async () => {
     const appChain = TestingAppChain.fromRuntime({
       NoSigning,
       TokenRegistry,
@@ -22,9 +21,7 @@ describe("sign", () => {
       Balances
     });
 
-    appChain.configurePartial({
-      Runtime: config,
-    });
+    appChain.configurePartial({ Runtime: config });
 
     await appChain.start();
 
@@ -40,14 +37,12 @@ describe("sign", () => {
     const noSigning = appChain.runtime.resolve("NoSigning");
     const faucet = appChain.runtime.resolve("Faucet");
 
-
     const tx = await appChain.transaction(alice, () => {
       faucet.dripSigned(tokenId, balanceToDrip);
     });
 
     await tx.sign();
     await tx.send();
-
     await appChain.produceBlock();
 
     appChain.setSigner(bobPrivateKey);
@@ -57,20 +52,13 @@ describe("sign", () => {
 
     await txBob.sign();
     await txBob.send();
-
-
     await appChain.produceBlock();
 
     appChain.setSigner(alicePrivateKey);
 
-
-    const faucet_key = new BalancesKey({
-      tokenId,
-      address: alice,
-    });
-    const faucet_balance = await appChain.query.runtime.Balances.balances.get(faucet_key);
-    expect(faucet_balance?.toString()).toBe(balanceToDrip.toString());
-
+    const faucetKey = new BalancesKey({ tokenId, address: alice });
+    const faucetBalance = await appChain.query.runtime.Balances.balances.get(faucetKey);
+    expect(faucetBalance?.toString()).toBe(balanceToDrip.toString());
 
     const tx1 = await appChain.transaction(alice, () => {
       const seed = "test";
@@ -78,11 +66,9 @@ describe("sign", () => {
       const circuitStringSeed = CircuitString.fromCharacters(chars); 
       noSigning.generate(circuitStringSeed);
     });
-    // console.log(tx1);
 
     await tx1.sign();
     await tx1.send();
-        
     await appChain.produceBlock();
 
     const tx2 = await appChain.transaction(alice, async () => {
@@ -90,9 +76,10 @@ describe("sign", () => {
       noSigning.transferWithProof(tokenId, alice, bob, UInt64.from(1000n), mock);
     });
 
-    await tx2.sign();
+    await tx2.sign(); 
+    appChain.setSigner(alicePrivateKey);
+
     await tx2.send();
-    
     const block = await appChain.produceBlock();
     console.log(tx2);
 
