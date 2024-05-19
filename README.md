@@ -26,11 +26,11 @@ This approach reduces the likelihood of errors and facilitates easier integratio
 
 ### ZK Hack- Finalist and hacker's choice
 
-POPKORN redefines UX in the web3 space, by removing the need for signatures to proof ownership of a wallet. Our dapp allows users generate a ZKP on the client-side one time, which can be stored in the wallet. This way, future transactions can be initiated without having to sign a message first.
+POPKORN redefines UX in the web3 space, by removing the need for signatures to proof ownership of a wallet. Our dapp allows users generate a ZKP on the client-side one time, which can be stored in the wallet. This way, future transactions can be initiated without any checks on signatures.
 
 ### Mina - Build a zkAppChain using Protokit Framework
 
-Our project is build completely with the Protokit framework. We created a zkAppChain that aims to improve UX, by replacing signing transactions to proof ownership by ZKP's using 01js. Our zkAppchain is build using the Protokit quickstart guide and with help from Matej. Also our frontend is based on what is provided by the Protokit framework.
+Our project is build completely with the Protokit framework. We created a zkAppChain that aims to improve UX, by replacing signing transactions to proof ownership by ZKP's using o1js. Our zkAppchain is build using the Protokit quickstart guide and with help from Matej. Also our frontend is based on what is provided by the Protokit framework.
 
 ## Links
 
