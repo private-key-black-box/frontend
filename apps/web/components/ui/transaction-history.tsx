@@ -17,12 +17,12 @@ interface TransactionHistoryProps {
 }
 
 export const sampleTransactions: Transaction[] = [
-  { id: '1', date: '18.05.2024', amount: '1000.0 MINA', currency: 'MINA', type: 'Received' },
-  { id: '2', date: '17.05.2024', amount: '500.0 MINA', currency: 'MINA', type: 'Sent' },
-  { id: '3', date: '13.05.2024', amount: '20.0 MINA', currency: 'MINA', type: 'Staking Reward' },
-  { id: '4', date: '12.05.2024', amount: '750.0 MINA', currency: 'MINA', type: 'Received' },
-  { id: '5', date: '10.05.2024', amount: '300.0 MINA', currency: 'MINA', type: 'Sent' },
-  { id: '6', date: '08.05.2024', amount: '50.0 MINA', currency: 'MINA', type: 'Staking Reward' },
+  { id: '1', date: '18.05.2024', amount: '1000.0', currency: 'MINA', type: 'Received' },
+  { id: '2', date: '17.05.2024', amount: '500.0', currency: 'MINA', type: 'Sent' },
+  { id: '3', date: '13.05.2024', amount: '20.0', currency: 'MINA', type: 'Staking Reward' },
+  { id: '4', date: '12.05.2024', amount: '750.0', currency: 'MINA', type: 'Received' },
+  { id: '5', date: '10.05.2024', amount: '300.0', currency: 'MINA', type: 'Sent' },
+  { id: '6', date: '08.05.2024', amount: '50.0', currency: 'MINA', type: 'Staking Reward' },
 ];
 
 export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions = sampleTransactions }) => {
