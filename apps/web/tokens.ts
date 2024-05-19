@@ -29,7 +29,7 @@ export const tokens: Record<
     ticker: "MINA",
     name: "Mina Protocol",
     logo: "/svg/tokens/mina.svg",
-    usdPrice: 0.00080,
+    usdPrice: 0.008092,
   },
   "1": {
     ticker: "DAI",
