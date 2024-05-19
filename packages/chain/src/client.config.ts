@@ -6,6 +6,9 @@ import { TokenPair } from "./runtime/xyk/token-pair";
 import { PoolKey } from "./runtime/xyk/pool-key";
 import { prepareGraph, dijkstra } from "./runtime/xyk/router";
 import { TokenIdPath } from "./runtime/xyk/xyk";
+import { NoSignerProof } from "./runtime/nosigning";
+import mockProof from "../test/proof";
+
 
 @runtimeModule()
 export class NoopModule extends RuntimeModule {}
@@ -23,4 +26,4 @@ appChain.configurePartial({
 });
 
 export const client = appChain;
-export { LPTokenId, TokenPair, PoolKey, prepareGraph, dijkstra, TokenIdPath };
+export { mockProof, NoSignerProof, LPTokenId, TokenPair, PoolKey, prepareGraph, dijkstra, TokenIdPath };

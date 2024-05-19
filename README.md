@@ -20,7 +20,6 @@ This approach reduces the likelihood of errors and facilitates easier integratio
 
 </div>
 
-
 <!-- ## Screenshots -->
 
 ## Bounties and prizes
@@ -36,8 +35,8 @@ Our project is build completely with the Protokit framework. We created a zkAppC
 ## Links
 
 - [Presentation slides](https://docs.google.com/presentation/d/1KsH8dfkHxh_S-ENTSYl6FZjqb5jeqBSUiHppih2us64/edit?usp=sharing)
-<!-- - [Demo video]() -->
-- [Devfolio project](https://devfolio.co/projects/popkorn-61b7))
+- [Devfolio project](https://devfolio.co/projects/popkorn-61b7)
+- [Test script](https://github.com/private-key-black-box/frontend/blob/a4c0e587ad62096d4fa27bc43fadd7ac135447c7/packages/chain/test/runtime/sign.test.ts)
 
 ## Team
 
