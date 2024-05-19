@@ -19,8 +19,6 @@ export function Header() {
           <div className="flex flex-col items-start">
             <p className="text-lg font-semibold">Hi, Harry! 😊</p>
           </div>
-          <div className="flex items-center space-x-4">
-          </div>
         </div>
       </div>
     </div>
