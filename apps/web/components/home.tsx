@@ -26,10 +26,10 @@ export function Home({ wallet }: HomeProps) {
         <div className="flex basis-11/12 flex-col 2xl:basis-10/12">
           <Header />
           <div className="flex justify-between mt-12">
-            <div className="w-[32.31%] h-[32.31%]"> {/* Decreased width by 10% from 35.9% to 32.31% */}
+            <div className="w-[30%] h-[30%]">
               <Friends />
             </div>
-            <div className="flex justify-center w-[42.32%]"> {/* Reduced width by 15% from 56.84% to 48.32% */}
+            <div className="flex justify-center w-[42.32%]">
               <div className="max-w-2xl basis-11/12 justify-center">
                 <Tabs activationMode="manual" value={tab}>
                   <div className="mb-4 flex justify-between">
