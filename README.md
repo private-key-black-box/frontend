@@ -1,54 +1,49 @@
-# Protokit starter-kit
+<div align="center">
+  <h1 align="center">Black Box Private Key </h1>
+  <h3>Proofable and verifiable blackboxed private keys</h3>
 
-This repository is a monorepo aimed at kickstarting application chain development using the Protokit framework.
+![logo](images/logo.png)
 
-## Quick start
+</div>
 
-The monorepo contains 1 package and 1 app:
+🔑 Navigating the complexities of private keys and digital signatures can be a challenge for average users, and mistakes can result in loss of funds. To address this, we propose a wallet solution built on Mina, leveraging Protokit, which eliminates the need for complex seed phrase management and simplifies digital signatures.
 
-- `packages/chain` contains everything related to your app-chain
-- `apps/web` contains a demo UI that connects to your locally hosted app-chain sequencer
+This approach reduces the likelihood of errors and facilitates easier integration with dApps, without significant changes to infrastructure and processes.
 
-**Prerequisites:**
+⚙️ Built on o1js, Protokit, Rust, Typescript and React.
 
-- Node.js v18
-- pnpm
-- nvm
+## Diagram
 
-> If you're on windows, please use Docker until we find a more suitable solution to running the `@proto-kit/cli`. 
-> Run the following command and then proceed to "Running the sequencer & UI":
->
-> `docker run -it --rm -p 3000:3000 -p 8080:8080 -v %cd%:/starter-kit -w /starter-kit gplane/pnpm:node18 bash`
+<div align="center">
+  <h1 align="center">Popkorn Diagram</h1>
 
+![diagram](images/diagram.png)
 
-### Setup
+</div>
 
-```zsh
-git clone https://github.com/proto-kit/starter-kit my-chain
-cd my-chain
+<!-- ## Screenshots -->
 
-# ensures you have the right node.js version
-nvm use
-pnpm install
-```
+## Bounties and prizes
 
-### Running the sequencer & UI
+### ZK Hack- Finalist and hacker's choice
 
-```zsh
-# starts both UI and sequencer locally
-pnpm dev
+POPKORN redefines UX in the web3 space, by removing the need for signatures to proof ownership of a wallet. Our dapp allows users generate a ZKP on the client-side one time, which can be stored in the wallet. This way, future transactions can be initiated without having to sign a message first.
 
-# starts UI only
-pnpm dev -- --filter web
-# starts sequencer only
-pnpm dev -- --filter chain
-```
+### Mina - Build a zkAppChain using Protokit Framework
 
-### Running tests
-```zsh
-# run and watch tests for the `chain` package
-pnpm run test --filter=chain -- --watchAll
-```
+Our project is build completely with the Protokit framework. We created a zkAppChain that aims to improve UX, by replacing signing transactions to proof ownership by ZKP's using 01js. Our zkAppchain is build using the Protokit quickstart guide and with help from Matej. Also our frontend is based on what is provided by the Protokit framework.
 
-Navigate to `localhost:3000` to see the example UI, or to `localhost:8080/graphql` to see the GQL interface of the locally running sequencer.
->>>>>>> updated
+## Links
+
+- [Presentation slides](https://docs.google.com/presentation/d/1KsH8dfkHxh_S-ENTSYl6FZjqb5jeqBSUiHppih2us64/edit?usp=sharing)
+<!-- - [Demo video]() -->
+- [Devfolio project](https://devfolio.co/projects/popkorn-61b7)
+
+## Team
+
+This project is build for ZK Hack Krakow 2024 by:
+
+- [Scott](https://github.com/tuddman)
+- [Cleaner](https://kacperkarbownik.xyz/)
+- [Thomas](https://www.linkedin.com/in/thomas-turek-a953a6232/)
+- [arjanjohan](https://twitter.com/arjanjohan)
