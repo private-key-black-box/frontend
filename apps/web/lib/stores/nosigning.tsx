@@ -48,6 +48,9 @@ export const useNoSigningStore = create<
 
       console.log("tx created");
       const mock = NoSignerProof.fromJSON(mockProof);
+      mock.proof.publicOutput = [sender];
+      console.log(mock);
+      console.log("mock created");
 
       const tx = await client.transaction(sender, () => {
         noSigning.transferWithProof(

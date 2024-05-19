@@ -20,6 +20,7 @@ import { Balances } from "./balances";
 import { UInt64 } from "@proto-kit/library";
 import { StateMap, assert } from "@proto-kit/protocol";
 
+
 export const errors = {
   senderNotFrom: () => "Sender does not match 'from'",
   fromBalanceInsufficient: () => "From balance is insufficient",
@@ -51,11 +52,11 @@ const generate = (seed: CircuitString) => {
   // let cipherText = encryptedPrivateKey.cipherText;
   // console.log(`cipherText: ${cipherText.length}`);
 
-  return publicKey; // return public key
+  return [publicKey]; // return public key
 };
 
 const MyProgram = Experimental.ZkProgram({
-  publicOutput: PublicKey,
+  publicOutput: Provable.Array(PublicKey,1),
   methods: {
     generate: {
       privateInputs: [CircuitString],
@@ -91,7 +92,7 @@ export class NoSigning extends RuntimeModule<Record<string, never>> {
   @runtimeMethod()
   public generate(
     seed: CircuitString,
-  ): PublicKey {
+  ): PublicKey[] {
     return generate(seed);
   }
 
@@ -104,9 +105,9 @@ export class NoSigning extends RuntimeModule<Record<string, never>> {
     proof: NoSignerProof,
   ) {
     proof.verify();
-    // design proof that is gives the from address as output
-    // assert that address is the same as from
-    // import assert from o1js
+    const pubkeyFromProof = proof.publicOutput[0];
+    assert(pubkeyFromProof.equals(from), errors.senderNotFrom());
+
     this.balances.transfer(tokenId, from, to, amount);
   }
   
