@@ -12,7 +12,7 @@ This approach reduces the likelihood of errors and facilitates easier integratio
 
 ⚙️ Built on o1js, Protokit, Rust, Typescript and React.
 
-## Diagram
+## Flow
 
 <div align="center">
   <h1 align="center">Popkorn Diagram</h1>
@@ -20,6 +20,7 @@ This approach reduces the likelihood of errors and facilitates easier integratio
 ![diagram](images/diagram.png)
 
 </div>
+
 
 <!-- ## Screenshots -->
 
@@ -38,6 +39,7 @@ Our project is build completely with the Protokit framework. We created a zkAppC
 - [Presentation slides](https://docs.google.com/presentation/d/1KsH8dfkHxh_S-ENTSYl6FZjqb5jeqBSUiHppih2us64/edit?usp=sharing)
 <!-- - [Demo video]() -->
 - [Devfolio project](https://devfolio.co/projects/popkorn-61b7)
+- [Modified Protokit SDK repo](https://github.com/private-key-black-box/protokit-sdk)
 
 ## Team
 
