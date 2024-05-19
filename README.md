@@ -1,6 +1,6 @@
 <div align="center">
-  <h1 align="center">Black Box Private Key </h1>
-  <h3>Proofable and verifiable blackboxed private keys</h3>
+  <h1 align="center">POPKORN </h1>
+  <h3>Proof Of Private Key Ownership Requiring Nothing</h3>
 
 ![logo](images/logo.png)
 
