@@ -28,8 +28,9 @@ export function Balance({ balance, tokenId }: BalanceProps) {
   const formattedBalance = useMemo(() => {
     if (!balance) return;
 
-    const { quotient, rest } = UInt64.from(balance).divMod(10 ** precision);
+    const { quotient, rest } = UInt64.from(parseInt(balance, 10)).divMod(10n ** BigInt(precision));
     const trimmedRest = removeTrailingZeroes(rest.toString());
+  
     return (
       <>
         {quotient.toString()}

@@ -1,7 +1,6 @@
 import { ArrowDown, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
 import { TokenInput } from "../ui/token-input";
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -39,7 +38,7 @@ export function SwapForm({ loading, route, unitPrice }: SwapFormProps) {
   return (
     <>
       <div className="relative">
-        <TokenInput name="tokenIn" label="You pay" />
+        <TokenInput name="tokenIn" label="You pay 💰" />
 
         <div className="absolute left-1/2 top-1/2 -ml-6 -mt-5">
           <Button
@@ -54,7 +53,7 @@ export function SwapForm({ loading, route, unitPrice }: SwapFormProps) {
         <div className="mt-2">
           <TokenInput
             name="tokenOut"
-            label="You get"
+            label="You get 🎁"
             amountInputDisabled={true}
           />
         </div>
@@ -65,7 +64,7 @@ export function SwapForm({ loading, route, unitPrice }: SwapFormProps) {
         disabled={!form.formState.isValid}
         className="mt-4 h-12 w-full rounded-lg px-10 text-lg"
       >
-        {error ?? "Swap"}
+        {error ?? "Swap 💱"}
       </Button>
 
       <Collapsible onOpenChange={setDetailsOpen}>
@@ -107,14 +106,14 @@ export function SwapForm({ loading, route, unitPrice }: SwapFormProps) {
               {route && route.length ? (
                 <>
                   {route.map((token, i) => (
-                    <>
+                    <span key={i}>
                       {tokens[token]?.ticker}
                       {route.length - 1 !== i && (
                         <span className="mx-1 text-muted-foreground">
                           {"->"}
                         </span>
                       )}
-                    </>
+                    </span>
                   ))}
                 </>
               ) : (
@@ -122,23 +121,6 @@ export function SwapForm({ loading, route, unitPrice }: SwapFormProps) {
               )}
             </div>
           </div>
-          {/* <div className="flex justify-between text-sm">
-            <p className="text-muted-foreground">Spot price</p>
-            <div className="flex">
-              <p className={cn(GeistMono.className)}>1 MINA = 0.8 DAI</p>
-              <p
-                className={
-                  (cn(GeistMono.className), "pl-1.5 text-muted-foreground")
-                }
-              >
-                (<USDBalance />)
-              </p>
-            </div>
-          </div> */}
-          {/* <div className="flex justify-between text-sm">
-            <p className="text-muted-foreground">Network cost</p>
-            <div>🎉 Free</div>
-          </div> */}
         </CollapsibleContent>
       </Collapsible>
     </>
