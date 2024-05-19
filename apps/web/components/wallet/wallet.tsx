@@ -146,44 +146,42 @@ export function Wallet({
               </p>
             </div>
           </div>
-
           <div className="flex flex-grow flex-col justify-between">
             <div className="p-6">
               <p className="text-md mb-5 text-muted-foreground">Tokens</p>
-
               <div className="grid gap-2">
-                {Object.entries(balances ?? {}).map(([tokenId, balance]) => {
-                  const token = tokens[tokenId];
-                  if (!token || (BigInt(tokenId) > 3n && balance == "0"))
-                    return null;
-                  return (
-                    <div className="flex items-center justify-between" key={tokenId}>
-                      <div className="flex items-center">
-                        <img className="mr-3 h-8 w-8" src={token.logo} alt={`${token.ticker} logo`} />
-                        <div>
-                          <p className="text-sm">{token.ticker}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {token.name}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className={cn("text-md pt-0.5")}>
-                          <Balance balance={balance} />
-                        </p>
-                        <p
-                          className={cn(
-                            "text-sm text-muted-foreground",
-                            GeistMono.className,
-                          )}
-                        >
-                          <USDBalance balance={balance} tokenId={tokenId} />
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+  {Object.entries(balances ?? {}).map(([tokenId, balance]) => {
+    if (tokenId !== "0") return null;
+    const token = tokens[tokenId];
+    if (!token) return null;
+    return (
+      <div className="flex items-center justify-between" key={tokenId}>
+        <div className="flex items-center">
+          <img className="mr-3 h-8 w-8" src={token.logo} alt={`${token.ticker} logo`} />
+          <div>
+            <p className="text-sm">{token.ticker}</p>
+            <p className="text-xs text-muted-foreground">
+              {token.name}
+            </p>
+          </div>
+        </div>
+        <div className="text-right">
+          <p className={cn("text-md pt-0.5")}>
+            <Balance balance={balance} />
+          </p>
+          <p
+            className={cn(
+              "text-sm text-muted-foreground",
+              GeistMono.className,
+            )}
+          >
+            <USDBalance balance={balance} tokenId={tokenId} />
+          </p>
+        </div>
+      </div>
+    );
+  })}
+  </div>
             </div>
             <div className="p-6">
               <TransactionHistory transactions={sampleTransactions} />
