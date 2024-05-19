@@ -37,8 +37,7 @@ Our project is build completely with the Protokit framework. We created a zkAppC
 
 - [Presentation slides](https://docs.google.com/presentation/d/1KsH8dfkHxh_S-ENTSYl6FZjqb5jeqBSUiHppih2us64/edit?usp=sharing)
 <!-- - [Demo video]() -->
-- [Devfolio project](https://devfolio.co/projects/popkorn-61b7)
-- [Modified Protokit SDK repo](https://github.com/private-key-black-box/protokit-sdk)
+- [Devfolio project](https://devfolio.co/projects/popkorn-61b7))
 
 ## Team
 
