@@ -6,13 +6,11 @@ import { Header } from "./header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarTrigger,
+  MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Toaster } from "@/components/ui/toaster";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Friends } from "@/components/ui/friends"; // Ensure correct import path
 
 export interface HomeProps {
   swapForm: JSX.Element;
@@ -37,97 +35,104 @@ export function Home({
       <Toaster />
       <div className="flex basis-11/12 flex-col 2xl:basis-10/12">
         <Header />
-        <div className="flex justify-center">
-          <div className="mt-24 max-w-md basis-11/12 justify-center md:basis-4/12">
-            <Tabs activationMode="manual" value={tab}>
-              <div className="mb-4 flex justify-between">
-                <TabsList className="border border-muted bg-transparent">
-                  <TabsTrigger
-                    onClick={() => setTab("swap")}
-                    value="swap"
-                    className="data-[state=active]:bg-muted"
-                  >
-                    Swap
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="pools"
-                    onClick={(e) => e.stopPropagation()}
-                    className="p-0 data-[state=active]:bg-muted"
-                  >
-                    <Menubar>
-                      <MenubarMenu>
-                        <MenubarTrigger
-                          onClick={() => setContextMenuOpen(true)}
-                          className={cn([
-                            "flex cursor-pointer items-center border-0 bg-transparent ring-0",
-                            {
-                              "bg-accent text-foreground":
-                                tab === "pools-add" || tab === "pools-remove",
-                            },
-                          ])}
-                        >
-                          Pools{" "}
-                          <div className={cn(["h-4 w-4"])}>
-                            <ChevronDown
-                              className={cn([
-                                "ml-1 mt-[0.5px] h-4 w-4 transition-all duration-300",
-                                {
-                                  "rotate-180": contextMenuOpen,
-                                },
-                              ])}
-                            />
-                          </div>
-                        </MenubarTrigger>
-                        <MenubarContent
-                          onInteractOutside={() => setContextMenuOpen(false)}
-                          onClick={() => setContextMenuOpen(false)}
-                        >
-                          <MenubarItem onClick={() => setTab("pools-add")}>
-                            Add liquidity
-                          </MenubarItem>
-                          <MenubarItem onClick={() => setTab("pools-remove")}>
-                            Remove liquidity
-                          </MenubarItem>
-                        </MenubarContent>
-                      </MenubarMenu>
-                    </Menubar>
-                  </TabsTrigger>
-
-                  <TabsTrigger
-                    onClick={() => setTab("transfer")}
-                    value="transfer"
-                    className="data-[state=active]:bg-muted"
-                  >
-                    Transfer
-                  </TabsTrigger>
-                </TabsList>
-
-                <Popover>
-                  <PopoverTrigger disabled={true}>
-                    <Button
-                      disabled={true}
-                      size="icon"
-                      variant="outline"
-                      className="rounded-xl text-muted-foreground"
+        <div className="flex justify-between mt-12">
+          <div className="w-1/4">
+            <Friends /> {/* Add the Friends component here */}
+          </div>
+          <div className="flex justify-center w-2/4">
+            <div className="max-w-md basis-11/12 justify-center md:basis-4/12">
+              <Tabs activationMode="manual" value={tab}>
+                <div className="mb-4 flex justify-between">
+                  <TabsList className="border border-muted bg-transparent">
+                    <TabsTrigger
+                      onClick={() => setTab("swap")}
+                      value="swap"
+                      className="data-[state=active]:bg-muted"
                     >
-                      <Cog className="h-5 w-5" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    Place content for the popover here.
-                  </PopoverContent>
-                </Popover>
-              </div>
+                      Swap
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="pools"
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-0 data-[state=active]:bg-muted"
+                    >
+                      <Menubar>
+                        <MenubarMenu>
+                          <MenubarTrigger
+                            onClick={() => setContextMenuOpen(true)}
+                            className={cn([
+                              "flex cursor-pointer items-center border-0 bg-transparent ring-0",
+                              {
+                                "bg-accent text-foreground":
+                                  tab === "pools-add" || tab === "pools-remove",
+                              },
+                            ])}
+                          >
+                            Pools{" "}
+                            <div className={cn(["h-4 w-4"])}>
+                              <ChevronDown
+                                className={cn([
+                                  "ml-1 mt-[0.5px] h-4 w-4 transition-all duration-300",
+                                  {
+                                    "rotate-180": contextMenuOpen,
+                                  },
+                                ])}
+                              />
+                            </div>
+                          </MenubarTrigger>
+                          <MenubarContent
+                            onInteractOutside={() => setContextMenuOpen(false)}
+                            onClick={() => setContextMenuOpen(false)}
+                          >
+                            <MenubarItem onClick={() => setTab("pools-add")}>
+                              Add liquidity
+                            </MenubarItem>
+                            <MenubarItem onClick={() => setTab("pools-remove")}>
+                              Remove liquidity
+                            </MenubarItem>
+                          </MenubarContent>
+                        </MenubarMenu>
+                      </Menubar>
+                    </TabsTrigger>
 
-              <TabsContent value="swap">{swapForm}</TabsContent>
-              <TabsContent value="pools-add">{addLiquidityForm}</TabsContent>
-              <TabsContent value="pools-remove">{removeLiquidityForm}</TabsContent>
-              <TabsContent value="transfer">{transferForm}</TabsContent>
-            </Tabs>
+                    <TabsTrigger
+                      onClick={() => setTab("transfer")}
+                      value="transfer"
+                      className="data-[state=active]:bg-muted"
+                    >
+                      Transfer
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <Popover>
+                    <PopoverTrigger disabled={true}>
+                      <Button
+                        disabled={true}
+                        size="icon"
+                        variant="outline"
+                        className="rounded-xl text-muted-foreground"
+                      >
+                        <Cog className="h-5 w-5" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      Place content for the popover here.
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                <TabsContent value="swap">{swapForm}</TabsContent>
+                <TabsContent value="pools-add">{addLiquidityForm}</TabsContent>
+                <TabsContent value="pools-remove">{removeLiquidityForm}</TabsContent>
+                <TabsContent value="transfer">{transferForm}</TabsContent>
+              </Tabs>
+            </div>
+          </div>
+          <div className="w-1/4">
+            {wallet}
           </div>
         </div>
       </div>
-      {wallet}
     </div>
   );
 }
